@@ -18,11 +18,16 @@ class CommentsController < ApplicationController
   
     def edit
     end
-  
+
+    # notice that we added a broadcast_to method to the comments#create action
     def create
       @comment = @post.comments.new(comment_params)
         if @comment.save
+          puts
           PostsChannel.broadcast_to(@post, @comment.body)
+          puts 
+          puts "New comment created!"
+          puts
           redirect_to @post, notice: "Comment was successfully created."
         else
           render :new

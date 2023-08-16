@@ -15,13 +15,3 @@
 </ul>
 
 <%= render 'comments/form', comment: Comment.new %>
-
-<script>
-  App.cable.subscriptions.create({ channel: "PostsChannel", id: "<%= @post.id %>" }, {
-    received(comment) {
-      el = document.createElement('li');
-      el.innerHTML = comment;
-      document.querySelector('ul').appendChild(el)
-    }
-  });
-</script>
